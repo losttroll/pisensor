@@ -1,0 +1,8 @@
+bme280==0.7
+dotenv==0.0.5
+gpio==1.0.0
+python-dotenv==1.0.1
+pytz==2024.2
+RPi.bme280==0.2.4
+RPi.GPIO==0.7.1
+smbus2==0.4.3
