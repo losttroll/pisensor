@@ -75,7 +75,7 @@ def getReadings():
 
     # Print the readings
     #print(timestamp_tz.strftime('%H:%M:%S %d/%m/%Y') + " Temp={0:0.1f}ºC, Temp={1:0.1f}ºF, Humidity={2:0.1f}%, Pressure={3:0.2f}hPa".format(temperature_celsius, temperature_fahrenheit, humidity, pressure))
-    data = {"timestamp" : datetime.datetime.now().strftime('%H:%M:%S %d/%m/%Y'),
+    data = {"timestamp" : datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             "temp" : round(temperature_fahrenheit, 2),
             "humidity" : round(humidity, 2),
             "pressure" : round(pressure, 2),
