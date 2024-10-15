@@ -13,6 +13,13 @@ load_dotenv()
 def fileOutput():
     sensor = os.environ["PS_SENSOR_NAME"]
     outpath = os.environ["PS_READING_OUTDIR"]
+    writefile = os.environ["PS_WRITE_FILE"]
+
+    if writefile == "False":
+        writefile = False
+    elif writefile == "True":
+        writefile = True
+
     ts = datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
 
     filename = f"{sensor}.{ts}"
@@ -21,6 +28,9 @@ def fileOutput():
     for e in results:
         print(e, results[e])
 
+
+    if writefile == False:
+        print("[!] PS_WRITE_FILE set to false, not writing export file")
     with open(f'{outpath}/{filename}.weatherdata', 'w') as f:
         json.dump(results, f)
     return
@@ -31,7 +41,7 @@ def getReadings():
 
     # Initialize I2C bus
     bus = smbus2.SMBus(1)
-
+    time.sleep(1)
     # Load calibration parameters
     calibration_params = bme280.load_calibration_params(bus, address)
     try:
