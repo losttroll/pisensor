@@ -14,7 +14,6 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     print(f"{client.user} is connected")
-    #message.send("Ready for orders")
     return
 
 @client.event
