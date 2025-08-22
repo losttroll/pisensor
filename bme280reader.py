@@ -35,7 +35,7 @@ def fileOutput():
         json.dump(results, f)
     return
 
-def getReadings():
+def getReadings(test=False):
     # BME280 sensor address (default address)
     address = 0x76
 
@@ -55,6 +55,21 @@ def getReadings():
     # create a variable to control the while loop
     running = True
 
+
+    #
+    # Read sensor data
+    data = bme280.sample(bus, address, calibration_params)
+
+    # Extract temperature, pressure, humidity, and corresponding timestamp
+    temperature_celsius = data.temperature
+    humidity = data.humidity
+    pressure = data.pressure
+    timestamp = data.timestamp
+
+    if tests == True:
+        print(data)
+        return
+
     # Check if the file exists before opening it in 'a' mode (append mode)
     if os.environ["PS_LOG_READINGS"] == True:
         file_exists = os.path.isfile('sensor_readings_bme280.txt')
@@ -65,13 +80,13 @@ def getReadings():
             file.write('Time and Date, temperature (ºC), temperature (ºF), humidity (%), pressure (hPa)\n')
 
     # Read sensor data
-    data = bme280.sample(bus, address, calibration_params)
+    #data = bme280.sample(bus, address, calibration_params)
 
     # Extract temperature, pressure, humidity, and corresponding timestamp
-    temperature_celsius = data.temperature
-    humidity = data.humidity
-    pressure = data.pressure
-    timestamp = data.timestamp
+    #temperature_celsius = data.temperature
+    #humidity = data.humidity
+    #pressure = data.pressure
+    #timestamp = data.timestamp
 
     # Adjust timezone
     # Define the timezone you want to use (list of timezones: https://gist.github.com/mjrulesamrat/0c1f7de951d3c508fb3a20b4b0b33a98)
@@ -103,7 +118,7 @@ def checkVariables():
             print(f"[!] Missing variable, add {var} to .env and re-run")
 
 def main():
-    results = getReadings()
+    results = getReadings(test=True)
     for e in results:
         print(f"{e}: {results[e]}")
     return
