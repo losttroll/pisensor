@@ -66,7 +66,7 @@ def getReadings(test=False):
     pressure = data.pressure
     timestamp = data.timestamp
 
-    if tests == True:
+    if test == True:
         print(data)
         return
 
